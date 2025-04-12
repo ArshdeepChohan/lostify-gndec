@@ -1,46 +1,86 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Search, Menu, X } from "lucide-react";
+import { Search, Menu, X, Camera, School } from "lucide-react";
 import { Link } from "react-router-dom";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="py-4 px-4 md:px-6 sticky top-0 bg-background/80 backdrop-blur-lg z-50 border-b">
+    <nav className="py-3 px-4 md:px-6 sticky top-0 bg-white shadow-sm z-50">
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-xl">L</span>
+          <div className="w-10 h-10 rounded-full bg-gndec-blue flex items-center justify-center">
+            <School className="text-white h-5 w-5" />
           </div>
-          <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400">
-            Lostify
-          </span>
+          <div className="flex flex-col">
+            <span className="text-xl font-bold text-gndec-blue leading-tight">
+              Lostify
+            </span>
+            <span className="text-xs text-gndec-burgundy leading-tight">
+              GNDEC Campus
+            </span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="text-foreground hover:text-primary transition-colors">
-            Home
-          </Link>
-          <Link to="/lost" className="text-foreground hover:text-primary transition-colors">
-            Lost Items
-          </Link>
-          <Link to="/found" className="text-foreground hover:text-primary transition-colors">
-            Found Items
-          </Link>
-          <Link to="/about" className="text-foreground hover:text-primary transition-colors">
-            About
-          </Link>
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <Link to="/" className="text-foreground hover:text-gndec-blue transition-colors px-3 py-2 text-sm font-medium">
+                  Home
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link to="/lost" className="text-foreground hover:text-gndec-blue transition-colors px-3 py-2 text-sm font-medium">
+                  Lost Items
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link to="/found" className="text-foreground hover:text-gndec-blue transition-colors px-3 py-2 text-sm font-medium">
+                  Found Items
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="text-foreground hover:text-gndec-blue transition-colors px-3 py-2 text-sm font-medium">
+                  Services
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="grid gap-3 p-4 md:w-[400px] lg:w-[500px]">
+                    <Link to="/image-search" className="flex items-start gap-3 p-3 rounded-md hover:bg-muted">
+                      <Camera className="h-5 w-5 text-gndec-blue" />
+                      <div>
+                        <div className="font-medium">Image Search</div>
+                        <p className="text-sm text-muted-foreground">
+                          Find lost items using image recognition
+                        </p>
+                      </div>
+                    </Link>
+                    <Link to="/about" className="flex items-start gap-3 p-3 rounded-md hover:bg-muted">
+                      <School className="h-5 w-5 text-gndec-blue" />
+                      <div>
+                        <div className="font-medium">About GNDEC</div>
+                        <p className="text-sm text-muted-foreground">
+                          Learn more about Guru Nanak Dev Engineering College
+                        </p>
+                      </div>
+                    </Link>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
         
         <div className="hidden md:flex items-center space-x-3">
-          <Button variant="outline" size="sm" className="flex items-center gap-2">
+          <Button variant="outline" size="sm" className="flex items-center gap-2 border-gndec-blue text-gndec-blue hover:bg-gndec-blue/10">
             <Search size={16} />
             <span>Search</span>
           </Button>
-          <Button>Sign In</Button>
+          <Button className="gndec-btn">Sign In</Button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -54,42 +94,49 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-background border-b p-4 animate-fade-in">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b p-4 animate-fade-in shadow-md">
           <div className="flex flex-col space-y-4">
             <Link 
               to="/" 
-              className="text-foreground hover:text-primary transition-colors"
+              className="text-foreground hover:text-gndec-blue transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Home
             </Link>
             <Link 
               to="/lost" 
-              className="text-foreground hover:text-primary transition-colors"
+              className="text-foreground hover:text-gndec-blue transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Lost Items
             </Link>
             <Link 
               to="/found" 
-              className="text-foreground hover:text-primary transition-colors"
+              className="text-foreground hover:text-gndec-blue transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Found Items
             </Link>
             <Link 
-              to="/about" 
-              className="text-foreground hover:text-primary transition-colors"
+              to="/image-search" 
+              className="text-foreground hover:text-gndec-blue transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              About
+              Image Search
+            </Link>
+            <Link 
+              to="/about" 
+              className="text-foreground hover:text-gndec-blue transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About GNDEC
             </Link>
             <div className="pt-2 flex flex-col space-y-2">
-              <Button variant="outline" size="sm" className="flex items-center justify-center gap-2 w-full">
+              <Button variant="outline" size="sm" className="flex items-center justify-center gap-2 w-full border-gndec-blue text-gndec-blue hover:bg-gndec-blue/10">
                 <Search size={16} />
                 <span>Search</span>
               </Button>
-              <Button className="w-full">Sign In</Button>
+              <Button className="w-full gndec-btn">Sign In</Button>
             </div>
           </div>
         </div>

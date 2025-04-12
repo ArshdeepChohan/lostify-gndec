@@ -62,6 +62,12 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				gndec: {
+					blue: '#004b93',
+					burgundy: '#8b2332',
+					gray: '#f0f0f0',
+					lightBlue: '#0078c1',
 				}
 			},
 			fontFamily: {
