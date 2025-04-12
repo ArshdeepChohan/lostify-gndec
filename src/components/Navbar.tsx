@@ -59,7 +59,7 @@ const Navbar = () => {
                         </p>
                       </div>
                     </Link>
-                    <Link to="/about" className="flex items-start gap-3 p-3 rounded-md hover:bg-muted">
+                    <a href="https://gndec.ac.in/" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 p-3 rounded-md hover:bg-muted">
                       <School className="h-5 w-5 text-gndec-blue" />
                       <div>
                         <div className="font-medium">About GNDEC</div>
@@ -67,7 +67,7 @@ const Navbar = () => {
                           Learn more about Guru Nanak Dev Engineering College
                         </p>
                       </div>
-                    </Link>
+                    </a>
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -124,13 +124,15 @@ const Navbar = () => {
             >
               Image Search
             </Link>
-            <Link 
-              to="/about" 
+            <a 
+              href="https://gndec.ac.in/" 
+              target="_blank" 
+              rel="noopener noreferrer"
               className="text-foreground hover:text-gndec-blue transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               About GNDEC
-            </Link>
+            </a>
             <div className="pt-2 flex flex-col space-y-2">
               <Button variant="outline" size="sm" className="flex items-center justify-center gap-2 w-full border-gndec-blue text-gndec-blue hover:bg-gndec-blue/10">
                 <Search size={16} />

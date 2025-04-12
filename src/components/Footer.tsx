@@ -45,7 +45,7 @@ const Footer = () => {
               <li><a href="/lost" className="text-white/80 hover:text-white transition-colors">Lost Items</a></li>
               <li><a href="/found" className="text-white/80 hover:text-white transition-colors">Found Items</a></li>
               <li><a href="/image-search" className="text-white/80 hover:text-white transition-colors">Image Search</a></li>
-              <li><a href="/about" className="text-white/80 hover:text-white transition-colors">About GNDEC</a></li>
+              <li><a href="https://gndec.ac.in/" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">About GNDEC</a></li>
             </ul>
           </div>
           
