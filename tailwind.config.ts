@@ -68,6 +68,9 @@ export default {
 					burgundy: '#8b2332',
 					gray: '#f0f0f0',
 					lightBlue: '#0078c1',
+					green: '#4caf50',
+					lightGreen: '#8bc34a',
+					cream: '#f8f5f0'
 				}
 			},
 			fontFamily: {

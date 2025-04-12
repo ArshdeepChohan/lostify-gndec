@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Search, Menu, X, Camera, School } from "lucide-react";
+import { Search, Menu, X, Camera } from "lucide-react";
 import { Link } from "react-router-dom";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 
@@ -12,8 +12,8 @@ const Navbar = () => {
     <nav className="py-3 px-4 md:px-6 sticky top-0 bg-white shadow-sm z-50">
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          <div className="w-10 h-10 rounded-full bg-gndec-blue flex items-center justify-center">
-            <School className="text-white h-5 w-5" />
+          <div className="w-10 h-10 rounded-full bg-white border border-gndec-blue/30 flex items-center justify-center overflow-hidden">
+            <img src="/gndec-logo-light.png" alt="GNDEC Logo" className="h-8 w-8 object-contain" />
           </div>
           <div className="flex flex-col">
             <span className="text-xl font-bold text-gndec-blue leading-tight">
@@ -60,7 +60,9 @@ const Navbar = () => {
                       </div>
                     </Link>
                     <a href="https://gndec.ac.in/" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 p-3 rounded-md hover:bg-muted">
-                      <School className="h-5 w-5 text-gndec-blue" />
+                      <div className="h-5 w-5 flex-shrink-0">
+                        <img src="/gndec-logo-light.png" alt="GNDEC Logo" className="h-full w-full object-contain" />
+                      </div>
                       <div>
                         <div className="font-medium">About GNDEC</div>
                         <p className="text-sm text-muted-foreground">
@@ -76,7 +78,7 @@ const Navbar = () => {
         </div>
         
         <div className="hidden md:flex items-center space-x-3">
-          <Button variant="outline" size="sm" className="flex items-center gap-2 border-gndec-blue text-gndec-blue hover:bg-gndec-blue/10">
+          <Button variant="outline" size="sm" className="flex items-center gap-2 border-gndec-green text-gndec-green hover:bg-gndec-green/10">
             <Search size={16} />
             <span>Search</span>
           </Button>
@@ -134,7 +136,7 @@ const Navbar = () => {
               About GNDEC
             </a>
             <div className="pt-2 flex flex-col space-y-2">
-              <Button variant="outline" size="sm" className="flex items-center justify-center gap-2 w-full border-gndec-blue text-gndec-blue hover:bg-gndec-blue/10">
+              <Button variant="outline" size="sm" className="flex items-center justify-center gap-2 w-full border-gndec-green text-gndec-green hover:bg-gndec-green/10">
                 <Search size={16} />
                 <span>Search</span>
               </Button>

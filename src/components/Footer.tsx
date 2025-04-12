@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, School } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -10,8 +10,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-                <School className="text-gndec-blue h-5 w-5" />
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden">
+                <img src="/gndec-logo-light.png" alt="GNDEC Logo" className="h-8 w-8 object-contain" />
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-bold text-white leading-tight">Lostify</span>
@@ -80,7 +80,7 @@ const Footer = () => {
                 placeholder="Your email" 
                 className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:ring-white"
               />
-              <Button className="bg-white text-gndec-blue hover:bg-white/90 font-medium">Subscribe</Button>
+              <Button className="bg-gndec-lightGreen text-white hover:bg-gndec-lightGreen/90 font-medium">Subscribe</Button>
             </div>
           </div>
         </div>
