@@ -12,6 +12,11 @@ import LostItemsPage from "./pages/LostItemsPage";
 import FoundItemsPage from "./pages/FoundItemsPage";
 import SearchPage from "./pages/SearchPage";
 import AuthPage from "./pages/AuthPage";
+import ReportItemPage from "./pages/ReportItemPage";
+import LocationsPage from "./pages/LocationsPage";
+import AboutProcessPage from "./pages/AboutProcessPage";
+import ShareExperiencePage from "./pages/ShareExperiencePage";
+import UserPointsPage from "./pages/UserPointsPage";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +34,11 @@ const App = () => (
             <Route path="/image-search" element={<ImageSearchPage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/report/:type" element={<ReportItemPage />} />
+            <Route path="/locations" element={<LocationsPage />} />
+            <Route path="/about-process" element={<AboutProcessPage />} />
+            <Route path="/share-experience" element={<ShareExperiencePage />} />
+            <Route path="/points" element={<UserPointsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

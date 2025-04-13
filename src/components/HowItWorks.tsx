@@ -1,6 +1,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Map, Search, Upload, Camera } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const features = [
   {
@@ -59,13 +60,13 @@ const HowItWorks = () => {
         </div>
 
         <div className="mt-12 flex items-center justify-center">
-          <a 
-            href="/about" 
+          <Link 
+            to="/about-process" 
             className="text-gndec-blue font-medium hover:underline flex items-center gap-1 group"
           >
             Learn more about our process
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

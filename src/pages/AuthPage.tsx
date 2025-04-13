@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const AuthPage = () => {
   const [email, setEmail] = useState("");
@@ -27,7 +28,12 @@ const AuthPage = () => {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
+  const { login } = useAuth();
+
+  // Get the return URL from location state
+  const returnUrl = location.state?.returnUrl || "/";
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,13 +42,13 @@ const AuthPage = () => {
     // Simulating authentication
     setTimeout(() => {
       setIsLoading(false);
-      // Store user info in localStorage for demo purposes
-      localStorage.setItem("user", JSON.stringify({ email, name: "GNDEC User" }));
+      // For demo purposes, any login is successful
+      login(email, "GNDEC User");
       toast({
         title: "Sign in successful",
         description: "Welcome back to Lostify!",
       });
-      navigate("/");
+      navigate(returnUrl);
     }, 1500);
   };
 
@@ -53,13 +59,13 @@ const AuthPage = () => {
     // Simulating registration
     setTimeout(() => {
       setIsLoading(false);
-      // Store user info in localStorage for demo purposes
-      localStorage.setItem("user", JSON.stringify({ email, name }));
+      // Store user info and login
+      login(email, name);
       toast({
         title: "Account created",
         description: "Welcome to Lostify!",
       });
-      navigate("/");
+      navigate(returnUrl);
     }, 1500);
   };
 

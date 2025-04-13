@@ -2,7 +2,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { StarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
+// Static testimonials
 const testimonials = [
   {
     name: "Rajinder Singh",
@@ -58,8 +60,10 @@ const TestimonialSection = () => {
           <p className="text-muted-foreground mb-4">
             Join hundreds of GNDEC students and faculty who have successfully used Lostify.
           </p>
-          <Button className="gndec-btn">
-            Share Your Experience
+          <Button className="gndec-btn" asChild>
+            <Link to="/share-experience">
+              Share Your Experience
+            </Link>
           </Button>
         </div>
       </div>

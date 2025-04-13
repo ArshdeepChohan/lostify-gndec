@@ -1,9 +1,27 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search, Upload, Camera } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/components/ui/use-toast";
 
 const Hero = () => {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleReportClick = (type: 'lost' | 'found') => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Authentication Required",
+        description: `Please sign in to report a ${type} item.`,
+      });
+      navigate("/auth", { state: { returnUrl: `/report/${type}` } });
+    } else {
+      navigate(`/report/${type}`);
+    }
+  };
+
   return (
     <section className="relative py-20 bg-gradient-to-b from-white to-gndec-cream overflow-hidden">
       {/* Background decorations */}
@@ -31,11 +49,20 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" className="w-full sm:w-auto gap-2 gndec-btn">
+            <Button 
+              size="lg" 
+              className="w-full sm:w-auto gap-2 gndec-btn"
+              onClick={() => handleReportClick('lost')}
+            >
               <Upload size={18} />
               Report Lost Item
             </Button>
-            <Button size="lg" variant="outline" className="w-full sm:w-auto gap-2 border-gndec-burgundy text-gndec-burgundy hover:bg-gndec-burgundy/10">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="w-full sm:w-auto gap-2 border-gndec-burgundy text-gndec-burgundy hover:bg-gndec-burgundy/10"
+              onClick={() => handleReportClick('found')}
+            >
               <Upload size={18} />
               Report Found Item
             </Button>
@@ -59,9 +86,11 @@ const Hero = () => {
               Find or report lost items across GNDEC campus locations: Main Building, Hostels, Library, Sports Complex, and Cafeteria.
             </p>
             <div className="flex justify-center">
-              <Button variant="outline" className="text-gndec-green border-gndec-green hover:bg-gndec-green/10 gap-2">
-                <Search size={16} />
-                <span>Browse All Locations</span>
+              <Button variant="outline" className="text-gndec-green border-gndec-green hover:bg-gndec-green/10 gap-2" asChild>
+                <Link to="/locations">
+                  <Search size={16} />
+                  <span>Browse All Locations</span>
+                </Link>
               </Button>
             </div>
           </div>

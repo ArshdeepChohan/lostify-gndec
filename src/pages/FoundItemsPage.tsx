@@ -1,19 +1,32 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ItemsGrid from "@/components/ItemsGrid";
 import { mockFoundItems } from "@/data/mockData";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Filter } from "lucide-react";
+import { Search, Filter, Upload } from "lucide-react";
+import { Link } from "react-router-dom";
+import Subscribe from "@/components/Subscribe";
 
 const FoundItemsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredItems, setFilteredItems] = useState(mockFoundItems);
+  const [allItems, setAllItems] = useState([...mockFoundItems]);
+  const [filteredItems, setFilteredItems] = useState([...mockFoundItems]);
+
+  useEffect(() => {
+    // Get items from localStorage
+    const storedItems = JSON.parse(localStorage.getItem("foundItems") || "[]");
+    if (storedItems.length > 0) {
+      const combinedItems = [...storedItems, ...mockFoundItems];
+      setAllItems(combinedItems);
+      setFilteredItems(combinedItems);
+    }
+  }, []);
 
   const handleSearch = () => {
-    const filtered = mockFoundItems.filter(item => 
+    const filtered = allItems.filter(item => 
       item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -62,6 +75,16 @@ const FoundItemsPage = () => {
                 <Filter size={16} className="mr-2" />
                 Filters
               </Button>
+              <Button className="bg-gndec-green hover:bg-gndec-green/90 text-white" asChild>
+                <Link to="/report/found">
+                  <Upload size={16} className="mr-2" />
+                  Report Found Item
+                </Link>
+              </Button>
+            </div>
+
+            <div className="mt-6">
+              <Subscribe />
             </div>
           </div>
         </section>
