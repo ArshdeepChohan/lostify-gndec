@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Search, Menu, X, Camera, LogOut, UserCircle } from "lucide-react";
@@ -17,7 +16,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, profile, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -125,15 +124,15 @@ const Navbar = () => {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem disabled>
-                  {user?.name || "GNDEC User"}
+                  {profile?.full_name || "GNDEC User"}
                 </DropdownMenuItem>
                 <DropdownMenuItem disabled>
                   {user?.email || "user@gndec.ac.in"}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Link to="/profile" className="flex items-center w-full">
-                    Profile
+                  <Link to="/dashboard" className="flex items-center w-full">
+                    Dashboard
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>

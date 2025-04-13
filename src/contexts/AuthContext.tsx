@@ -2,7 +2,8 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Session, User } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 type Profile = {
   id: string;
@@ -19,7 +20,7 @@ type Profile = {
 
 type User = {
   id: string;
-  email: string;
+  email: string | undefined;
 } | null;
 
 type AuthContextType = {
@@ -51,7 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setSession(session);
-        setUser(session?.user ?? null);
+        setUser(session?.user ? { id: session.user.id, email: session.user.email ?? undefined } : null);
         setIsAuthenticated(!!session);
         
         if (session?.user) {
@@ -68,7 +69,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
-      setUser(session?.user ?? null);
+      setUser(session?.user ? { id: session.user.id, email: session.user.email ?? undefined } : null);
       setIsAuthenticated(!!session);
       
       if (session?.user) {
