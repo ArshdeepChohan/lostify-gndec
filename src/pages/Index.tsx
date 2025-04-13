@@ -1,6 +1,5 @@
 
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
 import ItemsGrid from "@/components/ItemsGrid";
 import Stats from "@/components/Stats";
@@ -13,7 +12,6 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main>
-        <Hero />
         <Stats />
         <HowItWorks />
         <ItemsGrid 
