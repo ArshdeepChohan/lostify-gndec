@@ -1,12 +1,38 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Search, Menu, X, Camera } from "lucide-react";
-import { Link } from "react-router-dom";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
+import { Search, Menu, X, Camera, LogOut, UserCircle } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
+import { useAuth } from "@/contexts/AuthContext";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useToast } from "@/components/ui/use-toast";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLogout = () => {
+    logout();
+    toast({
+      title: "Logged out",
+      description: "You have been successfully logged out.",
+    });
+    navigate("/");
+  };
+
+  const handleSearchClick = () => {
+    navigate("/search");
+  };
 
   return (
     <nav className="py-3 px-4 md:px-6 sticky top-0 bg-white shadow-sm z-50">
@@ -78,11 +104,55 @@ const Navbar = () => {
         </div>
         
         <div className="hidden md:flex items-center space-x-3">
-          <Button variant="outline" size="sm" className="flex items-center gap-2 border-gndec-green text-gndec-green hover:bg-gndec-green/10">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex items-center gap-2 border-gndec-green text-gndec-green hover:bg-gndec-green/10"
+            onClick={handleSearchClick}
+          >
             <Search size={16} />
             <span>Search</span>
           </Button>
-          <Button className="gndec-btn">Sign In</Button>
+          
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                  <UserCircle className="h-6 w-6 text-gndec-blue" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem disabled>
+                  {user?.name || "GNDEC User"}
+                </DropdownMenuItem>
+                <DropdownMenuItem disabled>
+                  {user?.email || "user@gndec.ac.in"}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <Link to="/profile" className="flex items-center w-full">
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/my-items" className="flex items-center w-full">
+                    My Items
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} className="text-red-500">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button className="gndec-btn" onClick={() => navigate("/auth")}>
+              Sign In
+            </Button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -126,6 +196,13 @@ const Navbar = () => {
             >
               Image Search
             </Link>
+            <Link 
+              to="/search" 
+              className="text-foreground hover:text-gndec-blue transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Search
+            </Link>
             <a 
               href="https://gndec.ac.in/" 
               target="_blank" 
@@ -135,13 +212,42 @@ const Navbar = () => {
             >
               About GNDEC
             </a>
-            <div className="pt-2 flex flex-col space-y-2">
-              <Button variant="outline" size="sm" className="flex items-center justify-center gap-2 w-full border-gndec-green text-gndec-green hover:bg-gndec-green/10">
-                <Search size={16} />
-                <span>Search</span>
-              </Button>
-              <Button className="w-full gndec-btn">Sign In</Button>
-            </div>
+            
+            {isAuthenticated ? (
+              <>
+                <Link 
+                  to="/profile" 
+                  className="text-foreground hover:text-gndec-blue transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Profile
+                </Link>
+                <Link 
+                  to="/my-items" 
+                  className="text-foreground hover:text-gndec-blue transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  My Items
+                </Link>
+                <button 
+                  className="text-red-500 hover:text-red-600 transition-colors text-left"
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  Log Out
+                </button>
+              </>
+            ) : (
+              <Link 
+                to="/auth" 
+                className="text-gndec-blue font-medium hover:text-gndec-blue/80 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Sign In / Register
+              </Link>
+            )}
           </div>
         </div>
       )}
