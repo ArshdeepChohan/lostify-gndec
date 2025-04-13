@@ -9,7 +9,99 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      items: {
+        Row: {
+          category: string | null
+          contact_info: string | null
+          created_at: string
+          date: string | null
+          description: string | null
+          id: string
+          image_url: string | null
+          location: string | null
+          status: string
+          title: string
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string | null
+          contact_info?: string | null
+          created_at?: string
+          date?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          status?: string
+          title: string
+          type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string | null
+          contact_info?: string | null
+          created_at?: string
+          date?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          status?: string
+          title?: string
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          address: string | null
+          branch: string | null
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          phone: string | null
+          photo_url: string | null
+          roll_number: string | null
+          updated_at: string
+          user_type: string
+          year: string | null
+        }
+        Insert: {
+          address?: string | null
+          branch?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          photo_url?: string | null
+          roll_number?: string | null
+          updated_at?: string
+          user_type: string
+          year?: string | null
+        }
+        Update: {
+          address?: string | null
+          branch?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          photo_url?: string | null
+          roll_number?: string | null
+          updated_at?: string
+          user_type?: string
+          year?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

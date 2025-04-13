@@ -17,6 +17,7 @@ import LocationsPage from "./pages/LocationsPage";
 import AboutProcessPage from "./pages/AboutProcessPage";
 import ShareExperiencePage from "./pages/ShareExperiencePage";
 import UserPointsPage from "./pages/UserPointsPage";
+import DashboardPage from "./pages/DashboardPage";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/about-process" element={<AboutProcessPage />} />
             <Route path="/share-experience" element={<ShareExperiencePage />} />
             <Route path="/points" element={<UserPointsPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
