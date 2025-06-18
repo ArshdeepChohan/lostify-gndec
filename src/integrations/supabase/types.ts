@@ -9,6 +9,48 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      claims: {
+        Row: {
+          claim_message: string | null
+          claimant_id: string
+          created_at: string
+          id: string
+          item_id: string
+          status: string
+        }
+        Insert: {
+          claim_message?: string | null
+          claimant_id: string
+          created_at?: string
+          id?: string
+          item_id: string
+          status?: string
+        }
+        Update: {
+          claim_message?: string | null
+          claimant_id?: string
+          created_at?: string
+          id?: string
+          item_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "claims_claimant_id_fkey"
+            columns: ["claimant_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "claims_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       items: {
         Row: {
           category: string | null

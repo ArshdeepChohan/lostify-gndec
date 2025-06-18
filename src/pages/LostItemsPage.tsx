@@ -3,27 +3,57 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ItemsGrid from "@/components/ItemsGrid";
-import { mockLostItems } from "@/data/mockData";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Filter, Upload } from "lucide-react";
 import { Link } from "react-router-dom";
 import Subscribe from "@/components/Subscribe";
+import { supabase } from "@/integrations/supabase/client";
 
 const LostItemsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [allItems, setAllItems] = useState([...mockLostItems]);
-  const [filteredItems, setFilteredItems] = useState([...mockLostItems]);
+  const [allItems, setAllItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get items from localStorage
-    const storedItems = JSON.parse(localStorage.getItem("lostItems") || "[]");
-    if (storedItems.length > 0) {
-      const combinedItems = [...storedItems, ...mockLostItems];
-      setAllItems(combinedItems);
-      setFilteredItems(combinedItems);
-    }
+    fetchItems();
   }, []);
+
+  const fetchItems = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('items')
+        .select('*')
+        .eq('type', 'lost')
+        .eq('status', 'open')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching lost items:', error);
+        return;
+      }
+
+      const transformedItems = (data || []).map(item => ({
+        id: item.id,
+        title: item.title,
+        description: item.description || '',
+        category: item.category || 'Other',
+        location: item.location || 'Unknown',
+        date: new Date(item.created_at).toLocaleDateString(),
+        image: item.image_url || '/placeholder.svg',
+        type: 'lost' as const,
+        user_id: item.user_id,
+      }));
+
+      setAllItems(transformedItems);
+      setFilteredItems(transformedItems);
+    } catch (error) {
+      console.error('Error in fetchItems:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSearch = () => {
     const filtered = allItems.filter(item => 
@@ -89,12 +119,18 @@ const LostItemsPage = () => {
           </div>
         </section>
         
-        <ItemsGrid 
-          items={filteredItems}
-          title="Lost Items"
-          description="Browse through items that have been reported lost on GNDEC campus."
-          showViewAllButton={false}
-        />
+        {loading ? (
+          <div className="py-16 text-center">
+            <p>Loading items...</p>
+          </div>
+        ) : (
+          <ItemsGrid 
+            items={filteredItems}
+            title="Lost Items"
+            description="Browse through items that have been reported lost on GNDEC campus."
+            showViewAllButton={false}
+          />
+        )}
       </main>
       <Footer />
     </div>
